@@ -15,7 +15,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     runCommand(
-        'git branch'); // Example command, replace with your desired command
+        'git status'); // Example command, replace with your desired command
   }
 
   void runCommand(String command) {
@@ -32,10 +32,13 @@ class _HomeViewState extends State<HomeView> {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
-          child: Text(
-            output,
-            style: TextStyle(fontSize: 18.0),
-          ),
+          child: Text(output,
+              style: const TextStyle(
+                color: Colors.amber,
+                fontSize: 18.0,
+                fontWeight: FontWeight.w300,
+                decoration: TextDecoration.none,
+              )),
         ),
       ),
     );
