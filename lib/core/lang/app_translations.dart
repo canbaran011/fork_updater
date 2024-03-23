@@ -7,12 +7,20 @@ abstract class AppTranslation {
 
 final Map<String, String> enUS = {
   'hello': 'Welcome Kamer!',
-  'folderPathInput': 'Please enter folder path of project',
-  'branchName': 'Please enter the branch name for sync'
+  'folderPathInput': 'Folder Path',
+  'branchName': 'Branch Name',
+  'folderPathInputHint': 'Please enter folder path of project',
+  'branchNameHint': 'Please enter the branch name for sync and click add',
+  'emptyInputMessage': 'Ooops ! Empty inputs makes me sad!',
+  'syncTitle': 'SYNC'
 };
 
 final Map<String, String> trTR = {
   'hello': 'Hoş Geldin Kamer !',
-  'folderPathInput': 'Lutfen projenin folder path ini giriniz',
-  'branchName': 'Lutfen branch adini giriniz'
+  'folderPathInput': 'Dosya Yolu',
+  'branchName': 'Branch Adi',
+  'folderPathInputHint': 'Lutfen projenin folder path ini giriniz',
+  'branchNameHint': 'Lutfen branch adini giriniz ve artiya basiniz',
+  'emptyInputMessage': 'Hoppala abicim bos birakma su inputlari ya',
+  'syncTitle': 'SENKRONIZE ET'
 };

@@ -20,7 +20,7 @@ class ForkUpdater extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translationsKeys: AppTranslation.translationKeys,
-      locale: const Locale('tr', 'TR'),
+      locale: const Locale('en', 'US'),
       fallbackLocale: Get.deviceLocale,
       enableLog: true,
       navigatorKey: Get.key,

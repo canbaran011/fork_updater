@@ -22,9 +22,19 @@ class HomeViewModel extends GetxController {
   var isLoading = false.obs;
   var homeList = <HomeModel>[].obs;
 
+  var branchList = [].obs;
   var commandOutput = ''.obs;
 
   var searchResult = <FileSystemEntity>[].obs;
+
+  void addBranchToList() {
+    branchList.add(branchNameController.text);
+  }
+
+  void deleteBranchToList() {
+    branchList.removeWhere((element) => element == branchNameController.text);
+    // return array;
+  }
 
   void runCommand(String command) {
     try {

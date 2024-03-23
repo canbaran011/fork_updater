@@ -62,7 +62,7 @@ class HomeView extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),
           border: Border.all(
-            color: Colors.yellow, // You can set border color here
+            color: Colors.purple.shade600, // You can set border color here
             width: 2, // Border width
             style: BorderStyle.solid,
           ),
@@ -83,7 +83,7 @@ class HomeView extends StatelessWidget {
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(0.0),
                 labelText: 'folderPathInput'.tr,
-                hintText: 'folderPathInput'.tr,
+                hintText: 'folderPathInputHint'.tr,
                 labelStyle: TextStyle(
                   color: Colors.grey,
                   fontSize: 14.0,
@@ -128,9 +128,60 @@ class HomeView extends StatelessWidget {
               controller: ctrl.branchNameController,
               cursorColor: Colors.red,
               decoration: InputDecoration(
+                suffixIcon: Stack(alignment: Alignment.center, children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        color: Colors.purple.shade600,
+                        hoverColor: Colors.purple.shade900,
+                        icon: Icon(Icons.add),
+                        onPressed: () {
+                          // Add your button onPressed logic here
+                          if (ctrl.branchNameController.text
+                              .trim()
+                              .isNotEmpty) {
+                            ctrl.addBranchToList();
+                            print('Button pressed');
+                          } else {
+                            Get.snackbar('HOP ', 'Bos mu orasi bi daha bak !',
+                                colorText: Colors.white,
+                                backgroundColor: Colors.red,
+                                duration: Duration(seconds: 3),
+                                snackPosition: SnackPosition.TOP);
+                          }
+                          ctrl.branchNameController.clear();
+                        },
+                      ),
+                      IconButton(
+                        color: Colors.purple.shade600,
+                        hoverColor: Colors.purple.shade900,
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          // Add your button onPressed logic here
+                          if (ctrl.branchNameController.text
+                              .trim()
+                              .isNotEmpty) {
+                            ctrl.deleteBranchToList();
+                            print('Button pressed');
+                          } else {
+                            Get.snackbar('HOP ', 'Bos mu orasi bi daha bak !',
+                                colorText: Colors.white,
+                                backgroundColor: Colors.red,
+                                duration: Duration(seconds: 3),
+                                snackPosition: SnackPosition.TOP);
+                          }
+                          ctrl.branchNameController.clear();
+                        },
+                      ),
+                    ],
+                  ),
+                ]),
                 contentPadding: EdgeInsets.all(0.0),
                 labelText: 'branchName'.tr,
-                hintText: 'branchName'.tr,
+                hintText: 'branchNameHint'.tr,
                 labelStyle: TextStyle(
                   color: Colors.grey,
                   fontSize: 14.0,
@@ -161,6 +212,12 @@ class HomeView extends StatelessWidget {
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty || value.length < 9) {
+                  Get.snackbar('OHOOOOOO ',
+                      'Doldur su alanlari hadi isimiz gucumuz var, HQ MR bekliyor.',
+                      colorText: Colors.white,
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 3),
+                      snackPosition: SnackPosition.TOP);
                   return 'emptyInputMessage'.tr;
                 }
                 print(value);
@@ -170,11 +227,11 @@ class HomeView extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            padding: context.paddingNormal,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 onPrimary: Colors.white,
-                primary: Colors.blue,
+                primary: Colors.purple.shade600,
                 padding: context.paddingLow,
                 minimumSize: Size(Get.width * 0.85, 50),
                 shape: const RoundedRectangleBorder(
@@ -183,7 +240,7 @@ class HomeView extends StatelessWidget {
               onPressed: () {
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
-                  Get.snackbar('Giriş Yapılıyor', 'Lütfen bekleyiniz',
+                  Get.snackbar('Bi dk ', 'Hallediyorum',
                       colorText: Colors.white,
                       backgroundColor: Colors.blue,
                       duration: Duration(seconds: 3),
@@ -193,9 +250,22 @@ class HomeView extends StatelessWidget {
               },
               child: Obx(() => ctrl.isLoading.value
                   ? Icon(Icons.watch_later_outlined)
-                  : Text('loginTitle'.tr)),
+                  : Text('syncTitle'.tr)),
             ),
           ),
+          Padding(
+              padding: context.paddingNormal,
+              child: Container(
+                alignment: Alignment.topLeft,
+                child: Column(
+                  children: [
+                    Text('List of Branches for Sync'),
+                    Obx(() => SelectableText(
+                          "\n${ctrl.branchList}",
+                        ))
+                  ],
+                ),
+              ))
         ],
       ),
     );
@@ -209,7 +279,7 @@ class HomeView extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
         border: Border.all(
-          color: Colors.yellow, // You can set border color here
+          color: Colors.purple.shade600, // You can set border color here
           width: 2, // Border width
           style: BorderStyle.solid,
         ),
