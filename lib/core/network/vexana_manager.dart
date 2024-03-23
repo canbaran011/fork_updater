@@ -9,8 +9,8 @@ class VexanaManager {
     return _instance!;
   }
 
-  static const String _iosBaseUrl = '';
-  static const String _androidBaseUrl = '';
+  // static const String _iosBaseUrl = '';
+  // static const String _androidBaseUrl = '';
 
   VexanaManager._init();
 

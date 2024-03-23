@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'dart:io' show Platform;
 import 'package:fork_updater/view/home/view/home_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -38,7 +36,7 @@ class ForkUpdater extends StatelessWidget {
         ),
         primarySwatch: Colors.blue,
       ),
-      home: const HomeView(),
+      home: HomeView(),
     );
   }
 }
