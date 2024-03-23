@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fork_updater/view/home/service/home_service.dart';
@@ -21,7 +22,7 @@ class HomeViewModel extends GetxController {
   var folderPath = ''.obs;
   var branchList = [].obs;
 
-  var commandList = ['cd ', 'pwd', 'git status'];
+  var commandList = ['cd ', 'pwd', 'git pull upstream '];
 
   bool get isBranchListEmpty => branchList.isEmpty;
   bool get isFolderPathEmpty => folderPath.trim().isEmpty;
@@ -29,16 +30,35 @@ class HomeViewModel extends GetxController {
   void addBranchToList() {
     if (!branchList.contains(branchNameController.text)) {
       branchList.add(branchNameController.text);
+    } else {
+      Get.snackbar('Selamlar ', 'Zaten var bu branch',
+          colorText: Colors.white,
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 3),
+          snackPosition: SnackPosition.TOP);
     }
   }
 
   void deleteBranchToList() {
-    branchList.removeWhere((element) => element == branchNameController.text);
+    if (branchList.contains(branchNameController.text)) {
+      branchList.removeWhere((element) => element == branchNameController.text);
+    } else {
+      Get.snackbar('Selamlar ', 'Eklenmemis bu branch',
+          colorText: Colors.white,
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 3),
+          snackPosition: SnackPosition.TOP);
+    }
   }
 
   runCommandList() async {
-    commandOutput.value += await executePowerShellCommand(
-        '${commandList[0]}${folderPath.value}\n${commandList[1]}\n${commandList[2]}');
+    for (var element in branchList) {
+      print('element $element');
+      print(
+          '${commandList[0]}${folderPath.value}\n${commandList[1]}\n${commandList[2]}$element');
+      commandOutput.value += await executePowerShellCommand(
+          '${commandList[0]}${folderPath.value}\n${commandList[1]}\n${commandList[2]}$element');
+    }
   }
 
   Future<String> executePowerShellCommand(String command) async {

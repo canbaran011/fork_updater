@@ -27,8 +27,7 @@ class HomeView extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.delete),
             onPressed: () {
-              // Butona tıklandığında yapılacak işlemleri burada tanımlayabilirsiniz.
-              print('Ayarlar butonuna tıklandı!');
+              
               ctrl.commandOutput.value = '';
             },
           ),
