@@ -1,12 +1,9 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fork_updater/view/home/service/home_service.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../model/home_model.dart';
-
+ 
 class HomeViewModel extends GetxController {
   final IHomeService homeService;
   HomeViewModel(this.homeService);

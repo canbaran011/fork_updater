@@ -27,7 +27,6 @@ class HomeView extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.delete),
             onPressed: () {
-              
               ctrl.commandOutput.value = '';
             },
           ),
@@ -126,7 +125,6 @@ class HomeView extends StatelessWidget {
                   return 'emptyInputMessage'.tr;
                 }
                 print(value);
-                // TODO ctrl.emailInput = value;
                 return null;
               },
               onChanged: (value) {
@@ -222,7 +220,6 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               // The validator receives the text that the user has entered.
-              validator: (value) {},
             ),
           ),
           Padding(
