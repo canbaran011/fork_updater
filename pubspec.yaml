@@ -29,6 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  process: ^4.2.2
   get: ^4.6.1
   get_storage: ^2.0.3
   vexana: ^2.6.0

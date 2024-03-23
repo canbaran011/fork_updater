@@ -45,3 +45,33 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
+
+    // for (var element in commandList) {
+    //   folderPath.value = folderPath.value.replaceAll(r'\', r'\\');
+    //   commandOutput.value += await executePowerShellCommand(
+    //       element == commandList[0] ? (element + folderPath.value) : element);
+    //   // runCommand(element);
+    //   // if (commandList[0] == element) {
+    //   //   runCommand('$element ${folderPath.value}');
+    //   // } else {
+    //   //   runCommand(element);
+    //   // }
+    // }
+
+
+      // void runCommand(String command) async {
+  //   try {
+  //     await Process.run(command, [], runInShell: true)
+  //         .then((ProcessResult results) {
+  //       commandOutput.value += ('\n =>>> $command \n ${results.stdout}');
+  //     });
+  //     await Future.delayed(Duration(seconds: 5));
+  //     // commandOutput.value = '';
+  //     print('Function executed after 5 seconds');
+  //   } catch (error) {
+  //     Get.snackbar("ERROR ", error.toString(),
+  //         colorText: Colors.white,
+  //         backgroundColor: Colors.red,
+  //         duration: const Duration(seconds: 5));
+  //   }
+  // }

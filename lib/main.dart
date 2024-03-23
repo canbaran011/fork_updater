@@ -28,13 +28,19 @@ class ForkUpdater extends StatelessWidget {
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(
         brightness: Brightness.dark,
+        scrollbarTheme: const ScrollbarThemeData().copyWith(
+          thumbColor: MaterialStateProperty.all(Colors.purple[600]),
+          thumbVisibility: MaterialStateProperty.all<bool>(true),
+        ),
+        primarySwatch: Colors.purple,
         /* dark theme settings */
       ),
       theme: ThemeData(
         scrollbarTheme: const ScrollbarThemeData().copyWith(
-          thumbColor: MaterialStateProperty.all(Colors.blue[500]),
+          thumbColor: MaterialStateProperty.all(Colors.purple[600]),
+          thumbVisibility: MaterialStateProperty.all<bool>(true),
         ),
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
       home: HomeView(),
     );

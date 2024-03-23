@@ -21,8 +21,18 @@ class HomeView extends StatelessWidget {
         centerTitle: true,
         title: const Text(
           'Fork Updater for Kamer',
-          style: TextStyle(color: Colors.white70),
+          style: TextStyle(color: Color.fromARGB(255, 243, 173, 255)),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              // Butona tıklandığında yapılacak işlemleri burada tanımlayabilirsiniz.
+              print('Ayarlar butonuna tıklandı!');
+              ctrl.commandOutput.value = '';
+            },
+          ),
+        ],
       ),
       // backgroundColor: Colors.black87,
       body: getBody(context),
@@ -60,7 +70,7 @@ class HomeView extends StatelessWidget {
         width: Get.width * 0.4,
         height: Get.height * 0.7,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(25),
           border: Border.all(
             color: Colors.purple.shade600, // You can set border color here
             width: 2, // Border width
@@ -79,7 +89,7 @@ class HomeView extends StatelessWidget {
             padding: context.paddingNormal,
             child: TextFormField(
               controller: ctrl.projectPathController,
-              cursorColor: Colors.red,
+              cursorColor: Colors.purple,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(0.0),
                 labelText: 'folderPathInput'.tr,
@@ -113,12 +123,15 @@ class HomeView extends StatelessWidget {
               ),
               // The validator receives the text that the user has entered.
               validator: (value) {
-                if (value == null || value.isEmpty || value.length < 9) {
+                if (value == null || value.isEmpty) {
                   return 'emptyInputMessage'.tr;
                 }
                 print(value);
                 // TODO ctrl.emailInput = value;
                 return null;
+              },
+              onChanged: (value) {
+                ctrl.folderPath.value = value;
               },
             ),
           ),
@@ -126,7 +139,7 @@ class HomeView extends StatelessWidget {
             padding: context.paddingNormal,
             child: TextFormField(
               controller: ctrl.branchNameController,
-              cursorColor: Colors.red,
+              cursorColor: Colors.purple,
               decoration: InputDecoration(
                 suffixIcon: Stack(alignment: Alignment.center, children: [
                   Row(
@@ -210,58 +223,53 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               // The validator receives the text that the user has entered.
-              validator: (value) {
-                if (value == null || value.isEmpty || value.length < 9) {
-                  Get.snackbar('OHOOOOOO ',
-                      'Doldur su alanlari hadi isimiz gucumuz var, HQ MR bekliyor.',
-                      colorText: Colors.white,
-                      backgroundColor: Colors.red,
-                      duration: Duration(seconds: 3),
-                      snackPosition: SnackPosition.TOP);
-                  return 'emptyInputMessage'.tr;
-                }
-                print(value);
-                // TODO ctrl.emailInput = value;
-                return null;
-              },
+              validator: (value) {},
             ),
           ),
           Padding(
-            padding: context.paddingNormal,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                onPrimary: Colors.white,
-                primary: Colors.purple.shade600,
-                padding: context.paddingLow,
-                minimumSize: Size(Get.width * 0.85, 50),
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(50))),
-              ),
-              onPressed: () {
-                // Validate returns true if the form is valid, or false otherwise.
-                if (_formKey.currentState!.validate()) {
-                  Get.snackbar('Bi dk ', 'Hallediyorum',
-                      colorText: Colors.white,
-                      backgroundColor: Colors.blue,
-                      duration: Duration(seconds: 3),
-                      snackPosition: SnackPosition.TOP);
-                  // ctrl.sendLoginToAPI();
-                }
-              },
-              child: Obx(() => ctrl.isLoading.value
-                  ? Icon(Icons.watch_later_outlined)
-                  : Text('syncTitle'.tr)),
-            ),
-          ),
+              padding: context.paddingNormal,
+              child: Obx(() {
+                return ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    onPrimary: Colors.white,
+                    primary: Colors.purple.shade600,
+                    padding: context.paddingLow,
+                    minimumSize: Size(Get.width * 0.85, 50),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                  ),
+                  onPressed: ctrl.isBranchListEmpty || ctrl.isFolderPathEmpty
+                      ? null
+                      : () async {
+                          // Validate returns true if the form is valid, or false otherwise.
+                          if (_formKey.currentState!.validate()) {
+                            Get.snackbar('Selamlar ', 'Hallediyorum',
+                                colorText: Colors.white,
+                                backgroundColor: Colors.blue,
+                                duration: Duration(seconds: 3),
+                                snackPosition: SnackPosition.TOP);
+                            await ctrl.runCommandList();
+                          }
+                        },
+                  child: Obx(() => ctrl.isLoading.value
+                      ? Icon(Icons.watch_later_outlined)
+                      : Text('syncTitle'.tr)),
+                );
+              })),
           Padding(
               padding: context.paddingNormal,
               child: Container(
                 alignment: Alignment.topLeft,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('List of Branches for Sync'),
+                    Text('L I S T - O F - B R A N C H E S'),
                     Obx(() => SelectableText(
-                          "\n${ctrl.branchList}",
+                          "${ctrl.branchList}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Consolas'),
                         ))
                   ],
                 ),
@@ -277,14 +285,17 @@ class HomeView extends StatelessWidget {
       width: Get.width * 0.4,
       height: Get.height * 0.7,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(25),
         border: Border.all(
           color: Colors.purple.shade600, // You can set border color here
           width: 2, // Border width
           style: BorderStyle.solid,
         ),
       ),
-      child: Text('Some CMD View'),
+      child: SingleChildScrollView(
+          child: Obx(() => Text(ctrl.commandOutput.value.isEmpty
+              ? 'emptyResult'.tr
+              : ctrl.commandOutput.value))),
     );
   }
 }

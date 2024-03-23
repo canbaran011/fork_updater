@@ -12,7 +12,8 @@ final Map<String, String> enUS = {
   'folderPathInputHint': 'Please enter folder path of project',
   'branchNameHint': 'Please enter the branch name for sync and click add',
   'emptyInputMessage': 'Ooops ! Empty inputs makes me sad!',
-  'syncTitle': 'SYNC'
+  'syncTitle': 'SYNC',
+  'emptyResult': 'Result will appear here'
 };
 
 final Map<String, String> trTR = {
@@ -22,5 +23,6 @@ final Map<String, String> trTR = {
   'folderPathInputHint': 'Lutfen projenin folder path ini giriniz',
   'branchNameHint': 'Lutfen branch adini giriniz ve artiya basiniz',
   'emptyInputMessage': 'Hoppala abicim bos birakma su inputlari ya',
-  'syncTitle': 'SENKRONIZE ET'
+  'syncTitle': 'SENKRONIZE ET',
+  'emptyResult': 'Sonuclar burada goruntulenecektir'
 };
