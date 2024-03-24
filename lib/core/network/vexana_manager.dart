@@ -17,12 +17,12 @@ class VexanaManager {
   INetworkManager networkManager = NetworkManager(
       isEnableLogger: true,
       onRefreshFail: () {
-        print('ON REFRESH FAIL');
+        // print('ON REFRESH FAIL');
       },
       interceptor: InterceptorsWrapper(onError: (DioError e, handler) async {
         //FILE LOGGER FOR ERRORS WILL BE COME
 
-        print('NETWORK MANAGER ERROR HAPPENED');
+        // print('NETWORK MANAGER ERROR HAPPENED');
 
         return handler.next(e);
       }),

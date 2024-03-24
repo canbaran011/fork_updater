@@ -74,11 +74,11 @@ class HomeViewModel extends GetxController {
     try {
       // PowerShell output stream for reading
       process.stdout.transform(utf8.decoder).listen((data) {
-        print(data);
+        
         commandOutput.value += data;
       });
       process.stderr.transform(utf8.decoder).listen((data) {
-        print('Error: $data');
+        
         commandOutput.value += data;
       });
 

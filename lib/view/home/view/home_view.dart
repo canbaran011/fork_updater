@@ -124,7 +124,6 @@ class HomeView extends StatelessWidget {
                 if (value == null || value.isEmpty) {
                   return 'emptyInputMessage'.tr;
                 }
-                print(value);
                 return null;
               },
               onChanged: (value) {
@@ -154,9 +153,8 @@ class HomeView extends StatelessWidget {
                               .trim()
                               .isNotEmpty) {
                             ctrl.addBranchToList();
-                            print('Button pressed');
                           } else {
-                            Get.snackbar('HOP ', 'Bos mu orasi bi daha bak !',
+                            Get.snackbar('HOP ', 'Bos orasi bi daha bak !',
                                 colorText: Colors.white,
                                 backgroundColor: Colors.red,
                                 duration: Duration(seconds: 3),
@@ -175,9 +173,8 @@ class HomeView extends StatelessWidget {
                               .trim()
                               .isNotEmpty) {
                             ctrl.deleteBranchToList();
-                            print('Button pressed');
                           } else {
-                            Get.snackbar('HOP ', 'Bos mu orasi bi daha bak !',
+                            Get.snackbar('HOP ', 'Bos orasi bi daha bak !',
                                 colorText: Colors.white,
                                 backgroundColor: Colors.red,
                                 duration: Duration(seconds: 3),

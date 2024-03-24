@@ -76,34 +76,34 @@
   //   }
   // }
 
-import 'dart:convert';
-import 'dart:io'; 
+// import 'dart:convert';
+// import 'dart:io'; 
 
-void main() async {
-  // PowerShell'i başlat
-  var process = await Process.start('powershell.exe', []);
+// void main() async {
+//   // PowerShell'i başlat
+//   var process = await Process.start('powershell.exe', []);
 
-  // PowerShell'in çıktısını okumak için bir stream oluştur
-  process.stdout.transform(utf8.decoder).listen((data) {
-    print(data);
-  });
+//   // PowerShell'in çıktısını okumak için bir stream oluştur
+//   process.stdout.transform(utf8.decoder).listen((data) {
+//     print(data);
+//   });
 
-  // PowerShell'de çalışacak komutlar
-  List<String> commands = [
-    'cd D:/SourceRepos/RnEksisozluk', // PowerShell'de dizini değiştir
-    'git status', // İlk komut
-    'pwd', // İkinci komut
-    // diğer komutlar...
-  ];
+//   // PowerShell'de çalışacak komutlar
+//   List<String> commands = [
+//     'cd D:/SourceRepos/RnEksisozluk', // PowerShell'de dizini değiştir
+//     'git status', // İlk komut
+//     'pwd', // İkinci komut
+//     // diğer komutlar...
+//   ];
 
-  // Komutları PowerShell'e yaz
-  for (var command in commands) {
-    process.stdin.writeln(command);
-  }
+//   // Komutları PowerShell'e yaz
+//   for (var command in commands) {
+//     process.stdin.writeln(command);
+//   }
 
-  // Çıkış kodunu al ve işlemi sonlandır
-  process.exitCode.then((value) {
-    print('PowerShell işlemi tamamlandı, çıkış kodu: $value');
-    process.kill(); // İşlemi sonlandır
-  });
-}
+//   // Çıkış kodunu al ve işlemi sonlandır
+//   process.exitCode.then((value) {
+//     print('PowerShell işlemi tamamlandı, çıkış kodu: $value');
+//     process.kill(); // İşlemi sonlandır
+//   });
+// }
