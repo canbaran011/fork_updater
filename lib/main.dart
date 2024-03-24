@@ -29,7 +29,8 @@ class ForkUpdater extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         scrollbarTheme: const ScrollbarThemeData().copyWith(
-          thumbColor: MaterialStateProperty.all(Colors.purple[600]),
+          thumbColor:
+              MaterialStateProperty.all(const Color.fromARGB(115, 141, 36, 170)),
           thumbVisibility: MaterialStateProperty.all<bool>(true),
         ),
         primarySwatch: Colors.purple,
@@ -37,7 +38,8 @@ class ForkUpdater extends StatelessWidget {
       ),
       theme: ThemeData(
         scrollbarTheme: const ScrollbarThemeData().copyWith(
-          thumbColor: MaterialStateProperty.all(Colors.purple[600]),
+          thumbColor:
+              MaterialStateProperty.all(const Color.fromARGB(141, 141, 36, 170)),
           thumbVisibility: MaterialStateProperty.all<bool>(true),
         ),
         primarySwatch: Colors.purple,

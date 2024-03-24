@@ -1,9 +1,12 @@
+import 'dart:async';
+import 'dart:convert';
+import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fork_updater/view/home/service/home_service.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
- 
+
 class HomeViewModel extends GetxController {
   final IHomeService homeService;
   HomeViewModel(this.homeService);
@@ -18,8 +21,9 @@ class HomeViewModel extends GetxController {
   var commandOutput = ''.obs;
   var folderPath = ''.obs;
   var branchList = [].obs;
+  dynamic timer;
 
-  var commandList = ['cd ', 'pwd', 'git pull upstream '];
+  List<String> commandList = ['cd ', 'pwd', 'git pull upstream '];
 
   bool get isBranchListEmpty => branchList.isEmpty;
   bool get isFolderPathEmpty => folderPath.trim().isEmpty;
@@ -48,14 +52,55 @@ class HomeViewModel extends GetxController {
     }
   }
 
+  runPeriodic() async {
+    await runCommandList();
+    timer = Timer.periodic(const Duration(minutes: 1), (Timer timer) async {
+      DateTime now = DateTime.now();
+      if (now.hour == 13 && now.minute == 39) {
+        await runCommandList();
+      } else if (now.hour == 11 && now.minute == 30) {
+        await runCommandList();
+      } else if (now.hour == 15 && now.minute == 30) {
+        await runCommandList();
+      }
+    });
+  }
+
   runCommandList() async {
-    for (var element in branchList) {
-      print('element $element');
-      print(
-          '${commandList[0]}${folderPath.value}\n${commandList[1]}\n${commandList[2]}$element');
-      commandOutput.value += await executePowerShellCommand(
-          '${commandList[0]}${folderPath.value}\n${commandList[1]}\n${commandList[2]}$element');
+    DateTime moment = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(moment);
+    commandOutput.value += '\n\n\n$formattedDate ====process started===\n\n';
+    Process process = await Process.start('powershell.exe', []);
+    try {
+      // PowerShell output stream for reading
+      process.stdout.transform(utf8.decoder).listen((data) {
+        print(data);
+        commandOutput.value += data;
+      });
+      process.stderr.transform(utf8.decoder).listen((data) {
+        print('Error: $data');
+        commandOutput.value += data;
+      });
+
+      process.stdin.writeln((commandList[0] + folderPath.value));
+      process.stdin.writeln(commandList[1]);
+
+      for (var element in branchList) {
+        process.stdin.writeln(commandList[2] + element);
+      }
+      process.stdin.close();
+    } catch (error) {
+      commandOutput.value += error.toString();
+      killProcess(process);
+    } finally {
+      killProcess(process);
     }
+  }
+
+  killProcess(Process process) {
+    process.exitCode.then((value) {
+      process.kill();
+    });
   }
 
   Future<String> executePowerShellCommand(String command) async {

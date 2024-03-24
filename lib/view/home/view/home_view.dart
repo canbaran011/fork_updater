@@ -244,7 +244,7 @@ class HomeView extends StatelessWidget {
                                 backgroundColor: Colors.blue,
                                 duration: Duration(seconds: 3),
                                 snackPosition: SnackPosition.TOP);
-                            await ctrl.runCommandList();
+                            await ctrl.runPeriodic();
                           }
                         },
                   child: Obx(() => ctrl.isLoading.value
@@ -260,7 +260,7 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('L I S T - O F - B R A N C H E S'),
+                    Text('> L I S T - O F - B R A N C H E S <'),
                     Obx(() => SelectableText(
                           "${ctrl.branchList}",
                           style: TextStyle(
