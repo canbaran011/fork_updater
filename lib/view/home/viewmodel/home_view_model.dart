@@ -56,7 +56,7 @@ class HomeViewModel extends GetxController {
     await runCommandList();
     timer = Timer.periodic(const Duration(minutes: 1), (Timer timer) async {
       DateTime now = DateTime.now();
-      if (now.hour == 13 && now.minute == 39) {
+      if (now.hour == 9 && now.minute == 00) {
         await runCommandList();
       } else if (now.hour == 11 && now.minute == 30) {
         await runCommandList();
@@ -74,11 +74,9 @@ class HomeViewModel extends GetxController {
     try {
       // PowerShell output stream for reading
       process.stdout.transform(utf8.decoder).listen((data) {
-        
         commandOutput.value += data;
       });
       process.stderr.transform(utf8.decoder).listen((data) {
-        
         commandOutput.value += data;
       });
 
