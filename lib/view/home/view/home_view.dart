@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fork_updater/core/extensions/context_extension.dart';
 import 'package:fork_updater/core/network/vexana_manager.dart';
 import 'package:fork_updater/view/home/service/home_service.dart';
+import 'package:fork_updater/view/home/view/settings_view.dart';
 import 'package:fork_updater/view/home/viewmodel/home_view_model.dart';
 import 'package:get/get.dart';
 
@@ -18,9 +19,16 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.settings), // Eklemek istediğiniz simge
+          onPressed: () {
+            Get.to(SettingsView());
+          },
+          tooltip: 'settingsTooltip'.tr,
+        ),
         centerTitle: true,
-        title: const Text(
-          'Fork Updater for Kamer',
+        title: Text(
+          'appBarTitle'.tr,
           style: TextStyle(color: Color.fromARGB(255, 243, 173, 255)),
         ),
         actions: [
@@ -29,6 +37,7 @@ class HomeView extends StatelessWidget {
             onPressed: () {
               ctrl.commandOutput.value = '';
             },
+            tooltip: 'emptyResultTooltip'.tr,
           ),
         ],
       ),
